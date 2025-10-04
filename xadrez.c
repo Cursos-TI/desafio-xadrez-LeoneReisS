@@ -1,49 +1,67 @@
 #include <stdio.h>
 
-int main() {
+void movimentoTorre(int casas) { // recursividade para movimentação da peça Torre
+    if (casas > 0) { // declaração do fim da recursividade
+        printf("Direita\n"); // a peça se moverá para a direita
+        movimentoTorre(casas - 1); // decremento da quantidade de casas
+    }
+}
 
-    int movimentoTorre = 1, movimentoBispo = 1, movimentoRainha, movimentoCavalo = 1; // declaração de variáveis dos movimentos das peças
+void movimentoBispo(int casas) { // recursividade com loops aninhados para movimentação da peça Bispo
+    if (casas > 0) { // declaração do fim da recursividade
+        int moviVertical = casas; // movimentação na diagonal para cima e para direita
+        while (moviVertical == casas) { // a peça se move na vertical para cima, de acordo com a quantidade de casas restantes
+            for (int moviHorizontal = casas; moviHorizontal == moviVertical; moviHorizontal--) { // a peça se move na horizontal para a direita, de acordo com a movimetação já realizada na vertical
+                printf("Direita\n"); // a peça se moverá para a direita
+            }
+            printf("Cima\n"); //  a peça se movera para cima
+            moviVertical--; // decremento do movimento vertical
+        }
+        movimentoBispo(casas - 1); // decremento da quantidade de casas
+    }
+}
+
+void movimentoRainha(int casas) {// recursividade para movimentação da peça Rainha
+    if (casas > 0) { // declaração do fim da recursividade
+        printf("Esquerda\n");// a peça se moverá para a esquerda
+        movimentoRainha(casas - 1); // decremento da quantidade de casas
+    }
+}
+
+
+int main() {
 
     printf("Movimentação das peças de Xadrez \n\n"); // título
 
     printf("Movimentação da Torre: \n"); // identificação da peça que irá movimentar
 
-        while (movimentoTorre <= 5) { // movimentação da torre em cinco posições para a direita
-            printf("Direita \n");
-            movimentoTorre++;
-        }
+        movimentoTorre(5); // definição da quantidade de casas a ser movimentada pela peça Torre
     
-    printf("\n");
+    printf("\n"); // espaçamento
 
     printf("Movimentação do Bispo: \n"); // identificação da peça que irá movimentar
 
-        do {
-            printf("Direita, Cima \n"); // movimentação do bispo em cinco posições na diagonal direita e cima
-            movimentoBispo++;
-        } while (movimentoBispo <= 5);
+        movimentoBispo(5);// definição da quantidade de casas a ser movimentada pela peça Bispo
 
-    printf("\n");
+    printf("\n"); // espaçamento
 
     printf("Movimentação da Rainha: \n"); // identificação da peça que irá movimentar
 
-    for (movimentoRainha = 8; movimentoRainha > 0; movimentoRainha--) { // movimentação da rainha em oito posições para a esquerda
-        printf("Esquerda \n");
-    }
+        movimentoRainha(8); // definição da quantidade de casas a ser movimentada pela peça Rainha
         
-    printf("\n");
+    printf("\n"); // espaçamento
 
     printf("Movimentação do Cavalo:\n"); // identificação da peça que irá movimentar
 
-    while (movimentoCavalo <= 1) { // movimentação do cavalo em uma posição para a esquerda
+        for (int MovVertCavalo = 2, MovHorCavalo = 1; MovVertCavalo > 0; MovHorCavalo--) { // loop com declaração das variáveis de movimento horizontal e vertical, com movimentação em 2 casas para cima e uma para a esquerda
+            while (MovVertCavalo > 0){ // loop para movimento vertical da peça Cavalo
+                printf("Cima\n"); //  a peça se mover para cima
+                MovVertCavalo--; // decremento do movimento vertical
+            }
+        printf("Direita\n"); // a peça se moverá para a direita
+        
+        } // movimentação em L, sendo 2 casas para cima e uma para direita
 
-        for (int movimentoVertical = 2; movimentoVertical >= 1; movimentoVertical--) { // movimentação do cavalo em duas posições para baixo com declaração da variável de movimento vertical
-            printf("Baixo\n");
-        }
-
-    printf("esquerda\n");
-    movimentoCavalo++;
-
-    }
 
     return 0;
 }
